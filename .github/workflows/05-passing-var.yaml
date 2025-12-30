@@ -1,4 +1,4 @@
-name: passing variables from one job to the other"
+name: passing variables from one job to the other
 
 on:
   workflow_dispatch:
