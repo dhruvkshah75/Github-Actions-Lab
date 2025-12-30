@@ -1,0 +1,10 @@
+# Exclude template files from language stats
+*.tpl linguist-documentation
+*.mustache linguist-documentation
+
+# Mark Kubernetes/deployment configs as vendored (not counted in language stats)
+deploy/** linguist-vendored
+
+# Ensure YAML files are detected correctly
+*.yaml linguist-language=YAML
+*.yml linguist-language=YAML
