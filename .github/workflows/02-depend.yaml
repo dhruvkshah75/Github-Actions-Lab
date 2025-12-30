@@ -22,4 +22,12 @@ jobs:
       - job-2 
     steps:
       - run: echo "Jobs can depend on each other"
+  job-4:
+    runs-on: ubuntu-latest
+    needs: 
+      - job-2
+      - job-3 
+    steps:
+      - run: echo "This workflow forms a directed acyclic graph (DAG)"
+  
 
