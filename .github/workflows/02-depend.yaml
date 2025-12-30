@@ -1,0 +1,25 @@
+name: jobs-depends 
+
+on: 
+  workflow_dispatch:
+    
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "A job can have"
+      - run: echo " more than 1 step"
+      - run: echo "within the same environment"
+  job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Multiple jobs run in parallel"
+  job-3:
+    runs-on: ubuntu-latest
+    # job 3 wont run in parallel as it needs job 1 and job 2
+    needs:
+      - job-1
+      - job-2 
+    steps:
+      - run: echo "Jobs can depend on each other"
+
