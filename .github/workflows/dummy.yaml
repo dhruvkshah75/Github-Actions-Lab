@@ -7,7 +7,16 @@ on:
 # this is the jobs and which has steps on what to run 
 # here dummy_task is a job and it has its own steps 
 jobs:
-  dummy_task:
+  # Job 1
+  dummy_task_in_shell:
     runs-on: ubuntu-latest
     steps:
       - run: echo "This is a dummy workflow"
+
+  # Job 2
+  dummy_task_in_python:
+    runs-on: ubuntu-latest
+    steps:
+      - run: print("This is the dummy task in python")
+        shell: python
+  
