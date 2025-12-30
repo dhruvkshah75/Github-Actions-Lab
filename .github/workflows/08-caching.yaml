@@ -30,6 +30,7 @@ jobs:
       
       # save cache only if we generated if we generated new content
       - name: save cache
+        if: steps.demo-cache.outputs.cache-hit != 'true'
         uses: actions/cache@v4
         with: 
           path: demo-cache
