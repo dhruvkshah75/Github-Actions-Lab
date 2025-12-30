@@ -1,0 +1,40 @@
+name: Triggering_events
+
+on:
+  # triggers on every git push to a branch name starting with example-branch/
+  push:
+    branches:
+      - "example-branch/*" 
+    paths:
+      - "**"  # include everything then only we can exclude some paths 
+      - "!docs/*.md"
+  
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    # if changes are made to a particular paths, 
+    # changes made to py files inside the services dir and will not trigger if changes made to md files inside the docs dir
+    paths:
+      - "services/*.py"  
+      - "!docs/*.md"
+
+  schedule:
+    - cron: "0 0 * * *" # will trigger at midnight utc 
+  
+  # if i trigger it manually
+  workflow_dispatch:
+
+jobs: 
+  # Job 1
+  echo-event: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: dump full json event
+        run: |
+          echo "=== $GITHUB_EVENT_NAME payload ==="
+          cat "$GITHUB_EVENT_PATH"
+
+
+    
