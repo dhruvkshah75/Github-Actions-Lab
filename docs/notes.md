@@ -30,3 +30,5 @@ We can also specify a non-default shell
       - run: print("This is the dummy task in python")
         shell: python
 ```
+
+We can also have jobs which depends on some other jobs by using `needs`, example shown in the <a href="../.github/workflows/02-depend.yaml">depend.yaml</a>
