@@ -1,0 +1,47 @@
+name: Artifacts
+
+# Artifacts provide a mecahnism to persist data beyond the lifecycle of a job
+
+# Symbol,Operation,Behavior
+# >,Overwrite,Creates a new file or wipes out the existing content of the file and replaces it with the new text.
+# >>,Append,Adds the new text to the very end of the existing file without deleting what is already there.
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  # Job 1
+  artifact-producer:
+    # This is the name of job
+    name: Produce artifact 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create artifact file
+        run: | 
+          echo "This message is stored in the artifact" > artifact.txt
+          echo "Generated on $(date)" >> artifact.txt
+      
+      - name: Upload artifact
+        # inbuilt action to upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-artifact
+          path: artifact.txt
+
+  artifact-consumer:
+    name: Consume artifact
+    runs-on: ubuntu-latest
+    needs: artifact-producer
+    steps:
+      - name: Download the artifact
+        # inbuilt action to download the artifact 
+        uses: actions/download-artifact@v4
+        with:
+          name: example-artifact  
+        
+        # Next step is to print the details in the file 
+      - name: Print the details of the artifact
+        run: cat artifact.txt
+
+      
+    
