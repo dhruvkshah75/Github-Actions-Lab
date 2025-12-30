@@ -8,3 +8,10 @@ deploy/** linguist-vendored
 # Ensure YAML files are detected correctly
 *.yaml linguist-language=YAML
 *.yml linguist-language=YAML
+
+# Exclude devbox files from language stats (often detected as Starlark)
+devbox.lock linguist-generated
+.devbox/** linguist-vendored
+
+# Exclude Tilt configuration files (Starlark)
+Tiltfile linguist-documentation
