@@ -1,0 +1,42 @@
+name: Caching
+
+# Caching allows for reusing data across jos and workflows 
+# Offical action is actions/cache@v4
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  # Job 1
+  actions-cache:
+    name: Demo cache 
+    runs-on: ubuntu-latest
+    steps:
+      # First we try to restore the cache if this workflow was ever runned 
+      - name: Restore cache 
+        id: demo-cache
+        uses: actions/cache@v4
+        with:
+          path: demo-cache
+          key: demo-cache-v1
+
+      # populate the cache dir on cache miss
+      - name: populate cache directory 
+        if: steps.demo-cache.outputs.cache-hit != 'true'
+        run: | 
+          echo "Cache miss - generating contents"
+          mkdir -p demo-cache
+          date > demo-cache/timestamp.txt
+      
+      # save cache only if we generated if we generated new content
+      - name: save cache
+        uses: actions/cache@v4
+        with: 
+          path: demo-cache
+          key: demo-cahce-v1
+
+      
+      - name: Verify cache status 
+        run: | 
+          echo "cache-hit? -> ${{ steps.demo-cache.outputs.cache-hit }}"
+          cat demo-cache/timestamp.txt

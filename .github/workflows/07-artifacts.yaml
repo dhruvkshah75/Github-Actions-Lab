@@ -25,7 +25,7 @@ jobs:
         # inbuilt action to upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: example-artifact
+          name: example-artifact  # stored as example-artifact.zip 
           path: artifact.txt
 
   artifact-consumer:
